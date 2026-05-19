@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preventative Maintenance Awareness — White Earth Housing Authority</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f3;
+    --bg-tertiary: #eeede9;
+    --text-primary: #1a1a18;
+    --text-secondary: #5f5e5a;
+    --border: rgba(0,0,0,0.12);
+    --border-med: rgba(0,0,0,0.22);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --green-dark: #1a3a2a;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #eaf3de;
+    --green-muted: #74b49b;
+    --green-text: #173404;
+    --amber-pale: #faeeda;
+    --amber-text: #412402;
+    --amber-mid: #854f0b;
+    --red-pale: #fcebeb;
+    --red-text: #501313;
+    --red-mid: #a32d2d;
+    --red-border: #f09595;
+    --blue-pale: #e6f1fb;
+    --blue-text: #042c53;
+    --blue-mid: #185fa5;
+    --warn-pale: #faeeda;
+    --warn-border: #ef9f27;
+    --warn-text: #412402;
+    --warn-icon: #854f0b;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #f0ede6;
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 1.5rem 1rem;
+  }
+
+  .page-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  /* ── Page header ── */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 0 0.25rem;
+  }
+  .page-org { font-size: 13px; color: var(--text-secondary); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .org-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green-mid); flex-shrink: 0; }
+  .page-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .page-counter { font-size: 13px; color: var(--text-secondary); }
+
+  /* ── Module tabs ── */
+  .module-tabs {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .tab {
+    padding: 6px 12px;
+    border: 1px solid var(--border-med);
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    transition: all 0.15s;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .tab:hover { border-color: var(--green-mid); color: var(--text-primary); }
+  .tab.active { background: var(--green-dark); color: #e8f5e0; border-color: var(--green-dark); font-weight: 500; }
+  .tab.quiz-tab { border-color: var(--green-mid); color: var(--green-mid); font-weight: 500; }
+  .tab.quiz-tab.active { background: var(--green-mid); color: white; border-color: var(--green-mid); }
+
+  /* ── Slide panel ── */
+  .slide-panel {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  .slide-header {
+    background: var(--green-dark);
+    padding: 1.4rem 1.75rem 1.2rem;
+  }
+  .slide-eyebrow {
+    font-size: 11px;
+    color: var(--green-muted);
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .slide-heading {
+    font-size: 22px;
+    font-weight: 600;
+    color: #f0f7f0;
+    line-height: 1.3;
+  }
+
+  .slide-body { padding: 1.4rem 1.75rem; }
+
+  /* ── Content components ── */
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .stat { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 14px; text-align: center; }
+  .stat-num { font-size: 30px; font-weight: 700; color: var(--green-mid); line-height: 1; }
+  .stat-lbl { font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.35; }
+
+  .callout { border-radius: var(--radius-md); padding: 13px 16px; margin-bottom: 12px; display: flex; gap: 12px; align-items: flex-start; }
+  .callout i { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .callout .ct { font-size: 15px; line-height: 1.6; }
+  .callout.danger { background: var(--red-pale); border: 1px solid var(--red-border); }
+  .callout.danger i { color: var(--red-mid); }
+  .callout.danger .ct { color: var(--red-text); }
+  .callout.warn { background: var(--warn-pale); border: 1px solid var(--warn-border); }
+  .callout.warn i { color: var(--warn-icon); }
+  .callout.warn .ct { color: var(--warn-text); }
+  .callout.info { background: var(--green-pale); border: 1px solid #97c459; }
+  .callout.info i { color: #3b6d11; }
+  .callout.info .ct { color: var(--green-text); }
+  .callout.blue { background: var(--blue-pale); border: 1px solid #85b7eb; }
+  .callout.blue i { color: var(--blue-mid); }
+  .callout.blue .ct { color: var(--blue-text); }
+
+  .key-point { display: flex; align-items: flex-start; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+  .key-point:last-of-type { border-bottom: none; }
+  .kp-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .kp-icon.green { background: var(--green-pale); }
+  .kp-icon.amber { background: var(--amber-pale); }
+  .kp-icon.red { background: var(--red-pale); }
+  .kp-icon.blue { background: var(--blue-pale); }
+  .kp-icon i { font-size: 20px; }
+  .kp-label { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+  .kp-body { font-size: 15px; color: var(--text-secondary); line-height: 1.55; }
+
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .dd-head { font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 8px 12px; display: flex; align-items: center; gap: 6px; }
+  .dd-head.do { background: var(--green-pale); color: #27500a; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+  .dd-head.dont { background: var(--red-pale); color: #791f1f; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+  .dd-item { font-size: 14px; padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text-primary); line-height: 1.4; display: flex; gap: 8px; align-items: flex-start; }
+  .dd-item:last-child { border-bottom: none; }
+  .dd-item i { flex-shrink: 0; margin-top: 2px; font-size: 14px; }
+  .dd-item.do i { color: #3b6d11; }
+  .dd-item.dont i { color: var(--red-mid); }
+
+  .disc-box { background: #f0f8f4; border: 2px solid var(--green-light); border-radius: var(--radius-md); padding: 14px 16px; margin-top: 12px; }
+  .disc-label { font-size: 11px; font-weight: 600; color: var(--green-mid); letter-spacing: 0.7px; text-transform: uppercase; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .disc-label i { font-size: 14px; }
+  .disc-q { font-size: 17px; color: var(--green-dark); line-height: 1.5; font-weight: 500; }
+
+  /* ── Nav row ── */
+  .nav-row { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.75rem; border-top: 1px solid var(--border); background: var(--bg-secondary); }
+  .nav-btn { display: flex; align-items: center; gap: 7px; padding: 9px 20px; border: 1px solid var(--border-med); border-radius: var(--radius-md); font-size: 14px; cursor: pointer; background: var(--bg-primary); color: var(--text-primary); transition: background 0.15s; font-family: inherit; font-weight: 500; }
+  .nav-btn:hover:not(:disabled) { background: var(--bg-tertiary); }
+  .nav-btn.primary { background: var(--green-mid); color: white; border-color: var(--green-mid); }
+  .nav-btn.primary:hover:not(:disabled) { background: var(--green-dark); }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; }
+  .dots { display: flex; gap: 5px; align-items: center; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border-med); }
+  .dot.on { background: var(--green-mid); width: 12px; border-radius: 4px; }
+
+  /* ── Quiz styles ── */
+  .quiz-header { background: var(--green-mid); padding: 1.4rem 1.75rem 1.2rem; }
+  .quiz-eyebrow { font-size: 11px; color: #9fe1cb; letter-spacing: 0.9px; text-transform: uppercase; margin-bottom: 6px; font-weight: 500; }
+  .quiz-heading { font-size: 22px; font-weight: 600; color: #f0f7f0; line-height: 1.3; }
+  .quiz-body { padding: 1.4rem 1.75rem; }
+
+  .qcard-progress { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.1rem; }
+  .qcard-pip-row { display: flex; gap: 5px; flex-wrap: wrap; }
+  .qcard-pip { width: 24px; height: 7px; border-radius: 4px; background: var(--border); transition: background 0.3s; }
+  .qcard-pip.done-right { background: var(--green-light); }
+  .qcard-pip.done-wrong { background: #e24b4a; }
+  .qcard-pip.current { background: var(--green-mid); }
+  .qcard-score { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+
+  .flashcard { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 0.75rem; }
+  .fc-options { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 9px; }
+  .fc-opt { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid var(--border-med); border-radius: var(--radius-md); cursor: pointer; font-size: 16px; color: var(--text-primary); background: var(--bg-primary); transition: border-color 0.15s, background 0.15s; line-height: 1.4; text-align: left; font-family: inherit; width: 100%; }
+  .fc-opt:hover:not(.revealed) { border-color: var(--green-mid); background: #f0f8f4; }
+  .fc-opt.correct { background: var(--green-pale); border-color: var(--green-light); color: var(--green-text); }
+  .fc-opt.wrong { background: var(--red-pale); border-color: #e24b4a; color: var(--red-text); }
+  .fc-opt.revealed { cursor: default; }
+  .fc-opt-letter { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border-med); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; color: var(--text-secondary); }
+  .fc-opt.correct .fc-opt-letter { background: var(--green-light); border-color: var(--green-light); color: white; }
+  .fc-opt.wrong .fc-opt-letter { background: #e24b4a; border-color: #e24b4a; color: white; }
+
+  .fc-feedback { padding: 14px 1.25rem; border-top: 1px solid var(--border); font-size: 15px; line-height: 1.55; display: none; }
+  .fc-feedback.show { display: flex; gap: 11px; align-items: flex-start; }
+  .fc-feedback i { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .fc-feedback.correct-fb { background: var(--green-pale); color: var(--green-text); }
+  .fc-feedback.correct-fb i { color: #3b6d11; }
+  .fc-feedback.wrong-fb { background: var(--red-pale); color: var(--red-text); }
+  .fc-feedback.wrong-fb i { color: var(--red-mid); }
+
+  .fc-source { font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; display: flex; align-items: center; gap: 5px; }
+  .fc-nav { display: flex; justify-content: flex-end; }
+  .fc-next { display: flex; align-items: center; gap: 7px; padding: 10px 22px; background: var(--green-mid); color: white; border: none; border-radius: var(--radius-md); font-size: 15px; cursor: pointer; font-weight: 600; transition: background 0.15s; font-family: inherit; opacity: 0; pointer-events: none; }
+  .fc-next.visible { opacity: 1; pointer-events: all; }
+  .fc-next:hover { background: var(--green-dark); }
+
+  /* ── Results screen ── */
+  .quiz-complete { text-align: center; padding: 2rem 1.5rem; }
+  .qc-icon { font-size: 52px; margin-bottom: 1rem; }
+  .qc-h { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .qc-score-row { display: flex; justify-content: center; gap: 2.5rem; margin: 1.25rem 0 1.5rem; }
+  .qc-stat { text-align: center; }
+  .qc-num { font-size: 36px; font-weight: 700; color: var(--green-mid); }
+  .qc-lbl { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .qc-p { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .revisit-list { text-align: left; margin-bottom: 1.5rem; background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1rem 1.25rem; }
+  .revisit-label { font-size: 11px; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .revisit-item { padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-secondary); display: flex; gap: 9px; align-items: flex-start; line-height: 1.4; }
+  .revisit-item:last-child { border-bottom: none; }
+  .revisit-item i { color: #e24b4a; font-size: 13px; margin-top: 2px; flex-shrink: 0; }
+  .restart-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 26px; background: var(--green-mid); color: white; border: none; border-radius: var(--radius-md); font-size: 15px; cursor: pointer; font-weight: 600; font-family: inherit; }
+  .restart-btn:hover { background: var(--green-dark); }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="page-org"><div class="org-dot"></div>White Earth Housing Authority</div>
+    <div class="page-title">Preventative Maintenance Awareness</div>
+    <div class="page-counter" id="mod-counter">Module 1 of 9</div>
+  </div>
+
+  <div class="module-tabs" id="module-tabs"></div>
+
+  <div class="slide-panel" id="slide-panel">
+    <div class="slide-header">
+      <div class="slide-eyebrow" id="s-eyebrow"></div>
+      <div class="slide-heading" id="s-heading"></div>
+    </div>
+    <div class="slide-body" id="s-body"></div>
+    <div class="nav-row" id="nav-row">
+      <button class="nav-btn" id="btn-prev" onclick="go(-1)"><i class="ti ti-arrow-left"></i> Previous</button>
+      <div class="dots" id="dots"></div>
+      <button class="nav-btn primary" id="btn-next" onclick="go(1)">Next <i class="ti ti-arrow-right"></i></button>
+    </div>
+  </div>
+</div>
+
+<script>
+const MODULES=[
+  {label:"Fire prevention",icon:"ti-flame",slides:[
+    {eyebrow:"Module 1 — Fire prevention",heading:"Cooking fires are the #1 cause of home fires",body:`<div class="stat-row"><div class="stat"><div class="stat-num">1</div><div class="stat-lbl">Grease fire caused a total home loss in this community</div></div><div class="stat"><div class="stat-num">#1</div><div class="stat-lbl">Cooking is the leading cause of home fires nationwide</div></div><div class="stat"><div class="stat-num">3 min</div><div class="stat-lbl">How fast a house fire becomes life-threatening</div></div></div><div class="callout danger"><i class="ti ti-flame"></i><div class="ct">A grease fire in this community caused a total loss — the home was destroyed because the stove was left unattended. This is completely preventable.</div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">Has anyone here had a close call in the kitchen, or knows someone who has? What happened?</div></div>`},
+    {eyebrow:"Module 1 — Fire prevention",heading:"Grease fire: what to do and what never to do",body:`<div class="do-dont"><div><div class="dd-head do"><i class="ti ti-check"></i> Do this</div><div class="dd-item do"><i class="ti ti-check"></i> Slide a lid over the pan to smother it</div><div class="dd-item do"><i class="ti ti-check"></i> Turn off the burner immediately</div><div class="dd-item do"><i class="ti ti-check"></i> Leave the lid on until fully cooled</div><div class="dd-item do"><i class="ti ti-check"></i> Use baking soda or an ABC fire extinguisher</div><div class="dd-item do"><i class="ti ti-check"></i> Call 911 if it spreads beyond the pan</div></div><div><div class="dd-head dont"><i class="ti ti-x"></i> Never do this</div><div class="dd-item dont"><i class="ti ti-x"></i> Pour water on it — grease fires explode</div><div class="dd-item dont"><i class="ti ti-x"></i> Move a burning pan</div><div class="dd-item dont"><i class="ti ti-x"></i> Fan flames with a towel</div><div class="dd-item dont"><i class="ti ti-x"></i> Lift the lid before it cools completely</div><div class="dd-item dont"><i class="ti ti-x"></i> Assume a small fire will go out on its own</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">Where is your fire extinguisher at home right now? Does anyone know how to use one?</div></div>`}
+  ]},
+  {label:"Housekeeping",icon:"ti-home",slides:[
+    {eyebrow:"Module 2 — General housekeeping",heading:"A clean, organized home is a safer home",body:`<div class="callout info"><i class="ti ti-info-circle"></i><div class="ct">Good day-to-day housekeeping is the foundation of preventative maintenance. It helps you catch problems early, prevents pest intrusion, reduces fire risk, and keeps your home healthy for your family.</div></div><div class="key-point"><div class="kp-icon green"><i class="ti ti-trash" style="color:#3b6d11"></i></div><div><div class="kp-label">Take trash out regularly</div><div class="kp-body">Trash left inside — especially food waste — attracts insects and rodents fast. Bag it, seal it, and remove it promptly.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-bug" style="color:#854f0b"></i></div><div><div class="kp-label">Store food in sealed containers</div><div class="kp-body">Open bags are an open invitation for mice and insects. Use airtight containers and never leave pet food out overnight.</div></div></div><div class="key-point"><div class="kp-icon blue"><i class="ti ti-temperature" style="color:#185fa5"></i></div><div><div class="kp-label">In winter, keep heat at or above 60°F — even when away</div><div class="kp-body">Pipes freeze when indoor temperatures drop too low. A burst pipe can cause thousands of dollars of water damage in hours.</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">Has anyone noticed pests in or around their unit? What did you do about it?</div></div>`},
+    {eyebrow:"Module 2 — General housekeeping",heading:"Keeping your unit in good shape protects everyone",body:`<div class="key-point"><div class="kp-icon green"><i class="ti ti-vacuum-cleaner" style="color:#3b6d11"></i></div><div><div class="kp-label">Vacuum and sweep regularly — especially under appliances</div><div class="kp-body">Dust and debris under refrigerators and stoves is a fire hazard and attracts pests. Pull appliances out a few times a year to clean underneath.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-droplet" style="color:#854f0b"></i></div><div><div class="kp-label">Wipe down sinks, tubs, and tile regularly</div><div class="kp-body">Soap scum and standing moisture create perfect conditions for mold. A quick weekly wipe-down prevents bigger problems from developing.</div></div></div><div class="key-point"><div class="kp-icon green"><i class="ti ti-stairs" style="color:#3b6d11"></i></div><div><div class="kp-label">Keep walkways and exits clear</div><div class="kp-body">Clutter in hallways and near exits creates fall hazards and can block escape routes in an emergency.</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">What is one housekeeping habit that is hardest to stay on top of? What makes it difficult?</div></div>`}
+  ]},
+  {label:"Dryer vents",icon:"ti-wind",slides:[
+    {eyebrow:"Module 3 — Dryer vent maintenance",heading:"Clogged dryer vents are a leading cause of home fires",body:`<div class="stat-row"><div class="stat"><div class="stat-num">15,000</div><div class="stat-lbl">Dryer fires in the U.S. each year</div></div><div class="stat"><div class="stat-num">#1</div><div class="stat-lbl">Cause: failure to clean lint and vents</div></div><div class="stat"><div class="stat-num">1 yr</div><div class="stat-lbl">Recommended vent cleanout interval</div></div></div><div class="callout warn"><i class="ti ti-alert-triangle"></i><div class="ct">Lint is highly flammable. When it builds up in the vent line behind your dryer, normal drying heat can ignite it. Clean the lint trap before every load — and contact the housing authority for annual vent line cleanout.</div></div><div class="key-point"><div class="kp-icon red"><i class="ti ti-flame" style="color:#a32d2d"></i></div><div><div class="kp-label">Signs your vent may be clogged</div><div class="kp-body">Clothes taking more than one cycle to dry, dryer very hot to the touch, a burning smell during a cycle, or an unusually humid laundry room.</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">Does anyone notice their dryer taking longer than it used to? Have you ever cleaned your dryer vent?</div></div>`},
+    {eyebrow:"Module 3 — Dryer vent maintenance",heading:"Simple habits that prevent dryer fires",body:`<div class="key-point"><div class="kp-icon green"><i class="ti ti-filter" style="color:#3b6d11"></i></div><div><div class="kp-label">Clean the lint trap before every single load</div><div class="kp-body">This one habit makes a significant difference. A clogged lint trap reduces airflow, increases heat, and puts lint closer to the heating element.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-wind" style="color:#854f0b"></i></div><div><div class="kp-label">The vent line behind the dryer needs cleaning too</div><div class="kp-body">The duct running from the dryer to the outside wall collects lint over time and should be cleaned at least once a year. Contact the housing authority — they can assist.</div></div></div><div class="key-point"><div class="kp-icon red"><i class="ti ti-alert-triangle" style="color:#a32d2d"></i></div><div><div class="kp-label">Never run the dryer when you leave or go to sleep</div><div class="kp-body">If a dryer fire starts while no one is watching, it can spread quickly. Only run the dryer when someone is home and awake.</div></div></div><div class="callout info"><i class="ti ti-tool"></i><div class="ct">Contact the housing authority to schedule a dryer vent cleanout. This is a routine maintenance service — do not hesitate to ask.</div></div>`}
+  ]},
+  {label:"Moisture & mold",icon:"ti-droplet",slides:[
+    {eyebrow:"Module 4 — Moisture & mold prevention",heading:"Moisture is the root cause of most mold problems",body:`<div class="callout warn"><i class="ti ti-alert-triangle"></i><div class="ct">Mold can begin growing within 24–48 hours of a moisture problem. It damages your home's structure, causes health issues — especially for children and elders — and becomes expensive to fix if left unaddressed.</div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-eye" style="color:#854f0b"></i></div><div><div class="kp-label">Know what early mold looks like</div><div class="kp-body">Small dark spots or fuzzy discoloration — usually black, green, or gray — around windowsills, bathroom grout, under sinks, or on ceiling corners.</div></div></div><div class="key-point"><div class="kp-icon red"><i class="ti ti-nose" style="color:#a32d2d"></i></div><div><div class="kp-label">Trust your nose</div><div class="kp-body">A persistent musty or earthy smell — especially in bathrooms or closets — is often the first sign of hidden moisture or mold. If it smells off, report it.</div></div></div><div class="key-point"><div class="kp-icon green"><i class="ti ti-phone" style="color:#3b6d11"></i></div><div><div class="kp-label">Report it immediately — mold spreads fast</div><div class="kp-body">Do not try to paint over or bleach significant mold growth. Report it to the housing authority right away so it can be properly assessed and remediated.</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">Has anyone noticed musty smells or dark spots in corners, windows, or bathrooms? When did you first notice it?</div></div>`},
+    {eyebrow:"Module 4 — Moisture & mold prevention",heading:"Everyday habits that keep moisture under control",body:`<div class="key-point"><div class="kp-icon green"><i class="ti ti-air-conditioning" style="color:#3b6d11"></i></div><div><div class="kp-label">Always use the bathroom exhaust fan when showering</div><div class="kp-body">Run it during your shower and for at least 15 minutes after. If it is not working, report it — this is important ventilation for your home.</div></div></div><div class="key-point"><div class="kp-icon green"><i class="ti ti-chef-hat" style="color:#3b6d11"></i></div><div><div class="kp-label">Use the range hood fan when cooking</div><div class="kp-body">Cooking releases steam and moisture. The range hood removes that humidity before it settles on walls and cabinets.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-droplet-off" style="color:#854f0b"></i></div><div><div class="kp-label">Wipe up standing water right away</div><div class="kp-body">Water around the toilet base, under the sink, or on windowsills should be wiped dry. Any leak — even a slow drip — should be reported promptly.</div></div></div><div class="callout blue"><i class="ti ti-info-circle"></i><div class="ct">Do not block air vents or close off rooms for long periods. Good air circulation throughout the home is one of the best defenses against moisture buildup.</div></div>`}
+  ]},
+  {label:"Electrical safety",icon:"ti-plug",slides:[
+    {eyebrow:"Module 5 — Electrical safety",heading:"Overloaded circuits are a common and preventable fire risk",body:`<div class="callout danger"><i class="ti ti-bolt"></i><div class="ct">Plugging too many devices into one outlet draws more electricity than the wiring can safely handle. This overheats wires inside the walls — where you cannot see it — and can start a fire.</div></div><div class="key-point"><div class="kp-icon red"><i class="ti ti-plug" style="color:#a32d2d"></i></div><div><div class="kp-label">One high-draw appliance per outlet</div><div class="kp-body">Space heaters, microwaves, and air conditioners should each be plugged directly into a wall outlet — never into a power strip or extension cord.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-alert-triangle" style="color:#854f0b"></i></div><div><div class="kp-label">Warning signs to report immediately</div><div class="kp-body">Flickering lights, outlets that feel warm or smell burnt, breakers that trip repeatedly, or sparks when plugging something in.</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">Does anyone use a space heater at home? Where do you plug it in?</div></div>`},
+    {eyebrow:"Module 5 — Electrical safety",heading:"Safe habits with cords, outlets, and extension cords",body:`<div class="do-dont"><div><div class="dd-head do"><i class="ti ti-check"></i> Safe use</div><div class="dd-item do"><i class="ti ti-check"></i> Use extension cords as a temporary solution only</div><div class="dd-item do"><i class="ti ti-check"></i> Unplug small appliances when not in use</div><div class="dd-item do"><i class="ti ti-check"></i> Use surge protectors for electronics</div><div class="dd-item do"><i class="ti ti-check"></i> Report any damaged outlets or switch plates</div><div class="dd-item do"><i class="ti ti-check"></i> Keep cords out from under rugs and furniture</div></div><div><div class="dd-head dont"><i class="ti ti-x"></i> Avoid these</div><div class="dd-item dont"><i class="ti ti-x"></i> Daisy-chaining power strips together</div><div class="dd-item dont"><i class="ti ti-x"></i> Running cords under carpets or rugs</div><div class="dd-item dont"><i class="ti ti-x"></i> Using damaged or frayed cords</div><div class="dd-item dont"><i class="ti ti-x"></i> Covering outlets with furniture that traps heat</div><div class="dd-item dont"><i class="ti ti-x"></i> Forcing a three-prong plug into a two-prong outlet</div></div></div><div class="callout info"><i class="ti ti-tool"></i><div class="ct">If a breaker trips repeatedly for the same circuit, that is a sign of a real problem — not just an inconvenience. Report it to the housing authority rather than resetting it and moving on.</div></div>`}
+  ]},
+  {label:"Windows & screens",icon:"ti-layout-2",slides:[
+    {eyebrow:"Module 6 — Windows & screens",heading:"Screens and windows keep your home comfortable and pest-free",body:`<div class="callout info"><i class="ti ti-info-circle"></i><div class="ct">The housing authority offers screen replacement services. If your window screen is torn, missing, or damaged — contact them to have it replaced so you can safely open windows for fresh air without inviting insects inside.</div></div><div class="key-point"><div class="kp-icon green"><i class="ti ti-bug-off" style="color:#3b6d11"></i></div><div><div class="kp-label">A torn screen is not a small thing</div><div class="kp-body">Even a small tear lets mosquitoes, flies, and wasps enter freely. Report it promptly — screen replacement is available through the housing authority.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-snowflake" style="color:#854f0b"></i></div><div><div class="kp-label">Check window seals before winter</div><div class="kp-body">Drafty windows waste heat and raise energy costs. Report gaps, failed seals, or fogged double-pane glass to the housing authority.</div></div></div><div class="key-point"><div class="kp-icon red"><i class="ti ti-droplet" style="color:#a32d2d"></i></div><div><div class="kp-label">Wipe window sills and tracks dry</div><div class="kp-body">Condensation and rain collect in window tracks. Left to sit, this moisture leads to mold and wood rot. A quick wipe after rain makes a real difference.</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">Does anyone have a screen that needs replacing or a window that feels drafty? Have you reached out to the housing authority yet?</div></div>`}
+  ]},
+  {label:"Smoke & CO alarms",icon:"ti-bell",slides:[
+    {eyebrow:"Module 7 — Smoke & carbon monoxide alarms",heading:"Working alarms double your chance of surviving a fire",body:`<div class="callout danger"><i class="ti ti-flame"></i><div class="ct">A house fire can become unsurvivable in as little as three minutes. A working smoke alarm gives your family the warning they need to get out in time. A missing battery removes that protection completely.</div></div><div class="key-point"><div class="kp-icon green"><i class="ti ti-bell" style="color:#3b6d11"></i></div><div><div class="kp-label">Test smoke alarms every month</div><div class="kp-body">Press the test button once a month. If it does not beep loudly, change the battery. If it still does not work, report it to the housing authority right away.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-battery" style="color:#854f0b"></i></div><div><div class="kp-label">Change batteries once a year</div><div class="kp-body">Change smoke alarm batteries when you change your clocks in the fall. Never remove a battery just to stop a nuisance chirp — report it instead.</div></div></div><div class="key-point"><div class="kp-icon blue"><i class="ti ti-wind" style="color:#185fa5"></i></div><div><div class="kp-label">Carbon monoxide alarms are just as important</div><div class="kp-body">CO is odorless and colorless — you will not know it is there without an alarm. If your CO alarm sounds: get everyone outside immediately and call 911. Do not go back in.</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">When did you last test your smoke alarm? Does your home have a carbon monoxide detector?</div></div>`}
+  ]},
+  {label:"Proactive reporting",icon:"ti-clipboard-check",slides:[
+    {eyebrow:"Module 8 — Proactive reporting",heading:"Reporting early is one of the most helpful things you can do",body:`<div class="callout info"><i class="ti ti-info-circle"></i><div class="ct">The housing authority wants to know about problems as soon as you notice them. A small leak, a loose railing, a drafty door — these are all much easier and less expensive to fix early. Waiting almost always makes it worse.</div></div><div class="key-point"><div class="kp-icon green"><i class="ti ti-clock" style="color:#3b6d11"></i></div><div><div class="kp-label">When in doubt, report it</div><div class="kp-body">You do not need to be certain something is a problem to report it. If something looks off, sounds different, or does not feel right — make the call. That is exactly what the maintenance team is there for.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-list-check" style="color:#854f0b"></i></div><div><div class="kp-label">Things worth reporting right away</div><div class="kp-body">Any water leak or stain. Unusual smells. Doors or windows that do not seal. Broken locks. Electrical issues. Cracks in walls or ceilings. Pest sightings.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-camera" style="color:#854f0b"></i></div><div><div class="kp-label">Take a photo when you make a request</div><div class="kp-body">A photo helps the maintenance team understand the issue before they arrive and bring the right tools and materials. Most phones make this easy.</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">Has anyone hesitated to report something because they were not sure it was worth calling about? What was it?</div></div>`}
+  ]},
+  {label:"After a fire",icon:"ti-clipboard-list",slides:[
+    {eyebrow:"Module 9 — After a fire",heading:"If a fire happens: three steps, in order",body:`<div class="key-point"><div class="kp-icon red"><i class="ti ti-door-exit" style="color:#a32d2d"></i></div><div><div class="kp-label">Step 1 — Get out and stay out</div><div class="kp-body">Do not go back inside for anything until the fire department says it is safe. Your belongings can be replaced. Your family cannot.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-phone" style="color:#854f0b"></i></div><div><div class="kp-label">Step 2 — Call 911, even if the fire looks out</div><div class="kp-body">Fires that appear out can reignite from hidden embers inside walls and insulation hours later. Always call 911 after any fire — no exceptions.</div></div></div><div class="key-point"><div class="kp-icon green"><i class="ti ti-home" style="color:#3b6d11"></i></div><div><div class="kp-label">Step 3 — Contact White Earth Housing Authority</div><div class="kp-body">Call your housing manager as soon as you are safely outside. They will arrange emergency housing and coordinate the insurance claims process on your behalf.</div></div></div><div class="disc-box"><div class="disc-label"><i class="ti ti-message-circle"></i> Group discussion</div><div class="disc-q">Does your household have a fire escape plan? Does everyone — including children — know two ways out of every room?</div></div>`},
+    {eyebrow:"Module 9 — After a fire",heading:"Your personal belongings and what you should know",body:`<div class="callout warn"><i class="ti ti-alert-triangle"></i><div class="ct">The housing authority's insurance covers the building — the walls, roof, and structure. It does not cover your personal belongings: furniture, clothing, electronics, or anything you own inside the unit.</div></div><div class="key-point"><div class="kp-icon green"><i class="ti ti-camera" style="color:#3b6d11"></i></div><div><div class="kp-label">Document your belongings now — before anything happens</div><div class="kp-body">Walk through your home and record a video of every room. Email it to yourself or save it somewhere off-site. This makes any future claim much simpler.</div></div></div><div class="key-point"><div class="kp-icon amber"><i class="ti ti-receipt" style="color:#854f0b"></i></div><div><div class="kp-label">Save receipts after any displacement</div><div class="kp-body">Hotel stays, meals, and emergency clothing may be reimbursable through assistance programs. Keep every receipt.</div></div></div><div class="callout info"><i class="ti ti-info-circle"></i><div class="ct">Renters insurance covers your personal belongings and can cost as little as $10–15 per month. Ask your housing manager for more information about getting covered.</div></div>`}
+  ]}
+];
+
+const QUIZ=[
+  {q:"What should you do first if grease catches fire in a pan?",opts:["Pour water on it to cool it down","Slide a lid over the pan and turn off the burner","Carry the pan outside","Open a window to let the smoke out"],correct:1,feedback:"Covering the pan cuts off the oxygen the fire needs. Water causes grease fires to explode and spread instantly — never use it.",source:"Module 1 — Fire prevention"},
+  {q:"How soon can mold begin growing after a moisture problem starts?",opts:["1–2 weeks","About a month","Within 24–48 hours","Only after visible water damage"],correct:2,feedback:"Mold can start growing in as little as 24–48 hours. That is why reporting any leak, drip, or water stain immediately is so important.",source:"Module 4 — Moisture & mold"},
+  {q:"Your dryer is taking two full cycles to dry a normal load. What does this most likely mean?",opts:["The dryer is getting old and needs replacing","The lint trap or vent line is clogged and needs cleaning","You are putting in too many clothes","The temperature settings are wrong"],correct:1,feedback:"A clogged lint trap or vent line restricts airflow and is the most common cause of slow drying — and a leading cause of dryer fires. Report it for a vent cleanout.",source:"Module 3 — Dryer vents"},
+  {q:"A space heater should be plugged into:",opts:["A power strip with other devices","An extension cord","Directly into a wall outlet — by itself","Whichever outlet is closest to where you need it"],correct:2,feedback:"Space heaters draw a lot of power and must be plugged directly into a wall outlet — never into a power strip or extension cord, which can overheat and cause a fire.",source:"Module 5 — Electrical safety"},
+  {q:"The housing authority offers a free service for which of the following?",opts:["Window screen replacement","New furniture after a fire","Monthly pest spraying","Free internet installation"],correct:0,feedback:"White Earth Housing Authority offers screen replacement — so tenants can safely open windows for ventilation without letting insects in. Just make the request.",source:"Module 6 — Windows & screens"},
+  {q:"Your carbon monoxide alarm goes off. What do you do first?",opts:["Open windows and try to find the source","Call the gas company before leaving","Get everyone outside immediately, then call 911","Reset the alarm and wait to see if it goes off again"],correct:2,feedback:"Get out first — every second matters. Carbon monoxide can incapacitate you quickly. Once outside, call 911. Do not go back in until cleared by emergency responders.",source:"Module 7 — Smoke & CO alarms"},
+  {q:"How often should you test your smoke alarm?",opts:["Once a year","Every month","Only when the battery chirps","Every six months"],correct:1,feedback:"Monthly testing is the standard. It takes five seconds — press the button and confirm it beeps. If it does not, change the battery and report if it still fails.",source:"Module 7 — Smoke & CO alarms"},
+  {q:"You notice a small brown water stain on your ceiling after a rainstorm. What is the right move?",opts:["Paint over it so it does not spread","Wait a few weeks to see if it gets bigger","Report it to the housing authority right away","It is probably just condensation — ignore it"],correct:2,feedback:"A water stain signals an active or recent leak. Waiting turns a small shingle repair into a mold and structural problem. Report it within 24–48 hours.",source:"Module 8 — Proactive reporting"},
+  {q:"What is the minimum indoor temperature to maintain in winter — even when you are away?",opts:["50°F","55°F","60°F","65°F"],correct:2,feedback:"Keep indoor heat at or above 60°F when away. Temperatures below that put pipes at risk of freezing. A burst pipe can cause thousands of dollars in water damage in hours.",source:"Module 2 — General housekeeping"},
+  {q:"After a fire — even a small one that appears to be out — what should you always do?",opts:["Air out the home and monitor it overnight","Call 911 and then contact the housing authority","Only call if you can see visible damage","Wait until morning to assess the situation"],correct:1,feedback:"Hidden embers inside walls and insulation can reignite hours later. Always call 911 after any fire, then contact the housing authority to begin the reporting and recovery process.",source:"Module 9 — After a fire"}
+];
+
+let mi=0,si=0,inQuiz=false,qi=0,score=0,answered=[];
+
+function tot(m){return MODULES[m].slides.length;}
+
+function rebuildModulePanel(){
+  document.getElementById('slide-panel').innerHTML=`
+    <div class="slide-header">
+      <div class="slide-eyebrow" id="s-eyebrow"></div>
+      <div class="slide-heading" id="s-heading"></div>
+    </div>
+    <div class="slide-body" id="s-body"></div>
+    <div class="nav-row" id="nav-row">
+      <button class="nav-btn" id="btn-prev" onclick="go(-1)"><i class="ti ti-arrow-left"></i> Previous</button>
+      <div class="dots" id="dots"></div>
+      <button class="nav-btn primary" id="btn-next" onclick="go(1)">Next <i class="ti ti-arrow-right"></i></button>
+    </div>`;
+}
+
+function renderModule(){
+  const m=MODULES[mi],s=m.slides[si];
+  document.getElementById('s-eyebrow').textContent=s.eyebrow;
+  document.getElementById('s-heading').textContent=s.heading;
+  document.getElementById('s-body').innerHTML=s.body;
+  document.getElementById('mod-counter').textContent='Module '+(mi+1)+' of '+MODULES.length;
+  const dots=document.getElementById('dots');
+  dots.innerHTML='';
+  for(let i=0;i<tot(mi);i++){const d=document.createElement('div');d.className='dot'+(i===si?' on':'');dots.appendChild(d);}
+  document.getElementById('btn-prev').disabled=mi===0&&si===0;
+  const isLast=mi===MODULES.length-1&&si===tot(mi)-1;
+  const btn=document.getElementById('btn-next');
+  btn.innerHTML=isLast?'Finish <i class="ti ti-check"></i>':'Next <i class="ti ti-arrow-right"></i>';
+  btn.disabled=isLast;
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',!inQuiz&&i===mi));
+}
+
+function go(dir){
+  if(dir===1){if(si<tot(mi)-1)si++;else if(mi<MODULES.length-1){mi++;si=0;}}
+  else{if(si>0)si--;else if(mi>0){mi--;si=tot(mi)-1;}}
+  renderModule();
+}
+
+function renderQuizCard(){
+  const q=QUIZ[qi];
+  const isAnswered=answered[qi]!==undefined;
+  const chosen=answered[qi];
+  document.getElementById('mod-counter').textContent='Group quiz — question '+(qi+1)+' of '+QUIZ.length;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab.quiz-tab').forEach(t=>t.classList.add('active'));
+
+  const pips=QUIZ.map((_,i)=>{
+    let c='qcard-pip';
+    if(answered[i]!==undefined)c+=answered[i]===QUIZ[i].correct?' done-right':' done-wrong';
+    else if(i===qi)c+=' current';
+    return '<div class="'+c+'"></div>';
+  }).join('');
+
+  const opts=q.opts.map((o,i)=>{
+    let c='fc-opt';
+    if(isAnswered){c+=' revealed';if(i===q.correct)c+=' correct';else if(i===chosen&&i!==q.correct)c+=' wrong';}
+    const letter=String.fromCharCode(65+i);
+    const letterInner=isAnswered?(i===q.correct?'<i class="ti ti-check" style="font-size:11px"></i>':(i===chosen?'<i class="ti ti-x" style="font-size:11px"></i>':letter)):letter;
+    return '<button class="'+c+'" onclick="answerQ('+i+')" '+(isAnswered?'disabled':'')+'>'+
+      '<div class="fc-opt-letter">'+letterInner+'</div><span>'+o+'</span></button>';
+  }).join('');
+
+  const fbShow=isAnswered?'show':'';
+  const fbClass=isAnswered?(chosen===q.correct?'correct-fb':'wrong-fb'):'';
+  const fbIcon=isAnswered?(chosen===q.correct?'ti-check':'ti-x'):'';
+  const nextVis=isAnswered?' visible':'';
+  const nextLabel=qi<QUIZ.length-1?'Next question <i class="ti ti-arrow-right"></i>':'See results <i class="ti ti-trophy"></i>';
+
+  document.getElementById('slide-panel').innerHTML=`
+    <div class="quiz-header">
+      <div class="quiz-eyebrow">Group quiz — 10 questions</div>
+      <div class="quiz-heading">${q.q}</div>
+    </div>
+    <div class="quiz-body">
+      <div class="qcard-progress">
+        <div class="qcard-pip-row">${pips}</div>
+        <div class="qcard-score">${score} correct</div>
+      </div>
+      <div class="flashcard">
+        <div class="fc-options">${opts}</div>
+        <div class="fc-feedback ${fbClass} ${fbShow}">${isAnswered?'<i class="ti '+fbIcon+'"></i><span>'+q.feedback+'</span>':''}</div>
+      </div>
+      <div class="fc-source"><i class="ti ti-book" style="font-size:13px"></i>${q.source}</div>
+      <div class="fc-nav"><button class="fc-next${nextVis}" onclick="nextQ()">${nextLabel}</button></div>
+    </div>`;
+}
+
+function answerQ(i){
+  if(answered[qi]!==undefined)return;
+  if(i===QUIZ[qi].correct)score++;
+  answered[qi]=i;
+  renderQuizCard();
+}
+
+function nextQ(){
+  if(qi<QUIZ.length-1){qi++;renderQuizCard();}
+  else showResults();
+}
+
+function showResults(){
+  const pct=Math.round((score/QUIZ.length)*100);
+  let msg,icon;
+  if(pct===100){msg="Perfect score! This group knows their stuff. Keep these habits going at home.";icon='🏆';}
+  else if(pct>=70){msg="Great work. Review the modules where questions were missed and keep building these habits.";icon='👍';}
+  else{msg="Good effort. Use the missed questions as a guide — those are the topics worth reviewing together before wrapping up.";icon='📋';}
+
+  const wrongOnes=QUIZ.map((q,i)=>answered[i]!==q.correct
+    ?'<div class="revisit-item"><i class="ti ti-arrow-right"></i><span>'+q.q+'</span></div>':''
+  ).filter(Boolean).join('');
+
+  document.getElementById('mod-counter').textContent='Quiz complete';
+  document.getElementById('slide-panel').innerHTML=`
+    <div class="quiz-header">
+      <div class="quiz-eyebrow">Group quiz — complete</div>
+      <div class="quiz-heading">Here is how the group did</div>
+    </div>
+    <div class="quiz-body">
+      <div class="quiz-complete">
+        <div class="qc-icon">${icon}</div>
+        <div class="qc-h">${score} out of ${QUIZ.length} correct</div>
+        <div class="qc-score-row">
+          <div class="qc-stat"><div class="qc-num">${score}</div><div class="qc-lbl">Correct</div></div>
+          <div class="qc-stat"><div class="qc-num">${QUIZ.length-score}</div><div class="qc-lbl">Missed</div></div>
+          <div class="qc-stat"><div class="qc-num">${pct}%</div><div class="qc-lbl">Score</div></div>
+        </div>
+        <div class="qc-p">${msg}</div>
+        ${wrongOnes?'<div class="revisit-list"><div class="revisit-label">Questions to revisit</div>'+wrongOnes+'</div>':''}
+        <button class="restart-btn" onclick="restartQuiz()"><i class="ti ti-refresh"></i> Try the quiz again</button>
+      </div>
+    </div>`;
+}
+
+function restartQuiz(){qi=0;score=0;answered=[];renderQuizCard();}
+
+function startQuiz(){
+  inQuiz=true;qi=0;score=0;answered=[];
+  renderQuizCard();
+}
+
+function jumpModule(i){
+  inQuiz=false;mi=i;si=0;
+  rebuildModulePanel();
+  renderModule();
+}
+
+const tabs=document.getElementById('module-tabs');
+MODULES.forEach((m,i)=>{
+  const t=document.createElement('button');
+  t.className='tab';
+  t.innerHTML='<i class="ti '+m.icon+'" style="font-size:12px;vertical-align:-1px;margin-right:4px"></i>'+m.label;
+  t.onclick=()=>jumpModule(i);
+  tabs.appendChild(t);
+});
+const qt=document.createElement('button');
+qt.className='tab quiz-tab';
+qt.innerHTML='<i class="ti ti-cards" style="font-size:12px;vertical-align:-1px;margin-right:4px"></i>Group quiz';
+qt.onclick=startQuiz;
+tabs.appendChild(qt);
+
+renderModule();
+</script>
+</body>
+</html>
